@@ -83,8 +83,52 @@ mtfs$pos <-paste(mtfs$chr, mtfs$motif_start, sep="-") #make a column of specific
 rpts$pos <- paste(rpts$chr, rpts$motif_start, sep="-") #make a column of a specific positions per chromosome in rpts dataframe
 recm <-merge (mtfs, rpts, by.x="pos", by.y="pos") #merge making a new dataframe 
 head(recm)
-nrow(recm)
+nrow(recm) #when merging, want to make sure that data hasn't been doubled. want less data than when you started with 
 ```
 
+Left outer join to inclue all records from first file (the x position)
+```{r outer join, echo=TRUE}
+recm2 <- merge(mtfs, rpts, by.x="pos", by.y="pos", all.x=TRUE) #the merge statement with a left outer join all.y would be a right outer join
+head(recm2) #look at the data that were merged
+nrow(recm2) #how many rows in new dataframe?
+```
+
+
+##4. Working with Split-Apply-Combind Pattern
+
+Split data according to depth and GC.binned
+```{r split data, echo=TRUE}
+d_split <- split(d$depth, d$GC.binned)
+str(d_split)
+lapply(d_split, mean) #uses the lapply function to calculate the mean of each group
+
+```
+
+combine our split data into a single vector
+```{r combine data back together, echo=TRUE}
+unlist(lapply(d_split,mean)) #uses unlist to make a vector out of the list
+sapply(d_split, mean) #equivalent to above 2 commands
+```
+
+Want more values than just mean
+```{r summary, echo=TRUE}
+dpth_sum <- lapply(split(d$depth, d$GC.binned), summary)
+dpth_sum
+```
+
+Then put all of these values back together in the dataframe. However if you have many rows or columns to bind together into a dataframe
+```{r rbind, echo=TRUE} 
+rbind(dpth_sum[[1]], dpth_sum[[2]]) #uses rbind to bind together 2 rows #rbind = rowbind
+```
+
+do call function
+```{r do.call, echo=TRUE}
+do.call(rbind, lapply(split(d$depth, d$GC.binned), summary)) #taking all of the rows and binds them together
+```
+
+Aggregate function
+```{r aggregate, echo=TRUE}
+aggregate(d$depth, list(gc=d$GC.binned), mean)
+```
 
 
