@@ -21,9 +21,20 @@ recm <-merge (mtfs, rpts, by.x="pos", by.y="pos")
 ```
 
 
-pulling out the average recombination rate
+Pulling out the average recombination rate
 ```{r avg recombo rate, echo=TRUE}
-aggregate(recm$recom, list(recm$name), mean)
+avg.recom <- aggregate(recm$recom, list(recm$name), mean) 
+colnames(avg.recom) [2] <- "Average.recombrate" #renamed column 2 to average recombination rate
+colnames(avg.recom) [1] <- "Motif.type" #renaming group1 to motif type
+head(avg.recom)
+```
+
+
+###2. Do the distributions of recombination rate differ according to motif type?
+
+Plotting data
+```{r plot, echo=TRUE}
+ggplot(recm) + geom_density(aes(x=, fill=name), alpha=0.5) 
 ```
 
 
