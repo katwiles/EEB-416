@@ -39,3 +39,26 @@ summary(d$depth[d$percent.GC <80])
 ```{r subset function, echo=TRUE}
 subset(d, Pi >16 & percent.GC >80, c(start, end, Pi, percent.GC, depth))
 ```
+
+
+##2. Exploring data visually with ggplot2
+
+```{r loading ggplot, echo=FALSE}
+#install.packages("ggplot2") #remove initial # if need to install
+#library(ggplot2) #calling ggplot2
+```
+
+###making plots
+```{r inital diversity plot, echo=TRUE}
+d$position <- (d$end + d$start) / 2 #making a mid-point (new column)
+ggplot(d) + geom_point(aes(x=position, y=diversity)) #basic plot, + adds a layer, here we're plotting a geometric point
+ggplot(d) + geom_point(aes(x=position, y=diversity, color=cent)) #adding color to the true and false
+```
+
+
+####reducing overplotting
+```{r reduce overplotting, echo=TRUE}
+ggplot(d) + geom_density(aes(x=diversity), fill="black") #making density plot of diversity values
+ggplot(d) + geom_density(aes(x=diversity, fill=cent), alpha=0.4)
+```
+
