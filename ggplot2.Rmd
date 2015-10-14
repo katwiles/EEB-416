@@ -59,6 +59,17 @@ ggplot(d) + geom_point(aes(x=position, y=diversity, color=cent)) #adding color t
 ####reducing overplotting
 ```{r reduce overplotting, echo=TRUE}
 ggplot(d) + geom_density(aes(x=diversity), fill="black") #making density plot of diversity values
-ggplot(d) + geom_density(aes(x=diversity, fill=cent), alpha=0.4)
+ggplot(d) + geom_density(aes(x=diversity, fill=cent), alpha=0.4) #the areas near centromere have slightly more diversity than areas away from the centromere alpha=transparency value
 ```
+
+####reducing resolution of data by binning, taking continuous numeric values and puts them in discrete number of bins
+
+```{r bin, echo=TRUE}
+d$GC.binned <- cut(d$percent.GC, 5) #using cut to bin the percent GC into 5 bins
+ggplot(d) + geom_bar(aes(x=GC.binned)) #r putting into own bins, default 30
+ggplot(d) + geom_bar(aes(x=percent.GC)) #plotting percent GC that we put in bins
+ggplot(d) + geom_density(aes(x=depth, linetype=GC.binned), alpha=0.5) #this shows us the lowest and highest GC content windows have lower depth
+```
+
+
 
