@@ -131,4 +131,11 @@ Aggregate function
 aggregate(d$depth, list(gc=d$GC.binned), mean)
 ```
 
+##5. Explorting data from R
+
+```{r exporting data, echo=TRUE}
+write.table(mtfs, file="hotspot_motifs.txt", quote=FALSE, sep='', row.names=FALSE, col.names=TRUE)
+```
+
+
 

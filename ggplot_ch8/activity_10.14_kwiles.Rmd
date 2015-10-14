@@ -1,0 +1,6 @@
+---
+title: "R Intro2 Activity"
+author: "Kat Wiles"
+date: "October 14, 2015"
+output: html_document
+---
