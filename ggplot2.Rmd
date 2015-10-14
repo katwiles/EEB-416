@@ -16,9 +16,26 @@ d$diversity <- d$Pi/(10*1000) # rescale  diversity estimates from last class
 d$cent <- d$start >= 25800000 & d$end <= 29700000 #identify each row as in being in the centromere or not in the centromere 
 ```
 
-Which values of the vector conforms to our specifications
+Which values of the vector conforms to our specifications for SNPs
 ```{r SNPs, echo=TRUE}
-d$total.SNPs >= 85 #number of SNPs 
-d[d$total.SNPs >=85,] #this extracts rows with greater than or equal to 85 SNPs
+d$total.SNPs >= 85 #number of SNPs that are greater than or equal to 85 (logical)
+greaterequal85.SNPs <- d[d$total.SNPs >=85,] #this extracts rows with greater than or equal to 85 SNPs, this gave us only 3 rows 
 ```
 
+
+###Subsetting on 2 columns of data
+```{r subsetting by 2 columns, echo=TRUE}
+d[d$Pi >16 & d$percent.GC >80, c("start", "end", "depth", "Pi")] #pulling out specified data from these particular columns start, end, etc
+#if you wanted to re-order columns in output, reorder the items in cbind
+```
+
+###summarizing data after subsetting
+```{r summarizing subset data, echo=TRUE}
+summary(d$depth[d$percent.GC >=80])
+summary(d$depth[d$percent.GC <80])
+```
+
+###subset using subset function
+```{r subset function, echo=TRUE}
+subset(d, Pi >16 & percent.GC >80, c(start, end, Pi, percent.GC, depth))
+```
