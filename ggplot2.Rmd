@@ -1,0 +1,17 @@
+---
+title: "ggplot2"
+author: "kat"
+date: "October 14, 2015"
+output: html_document
+---
+
+##1. Subsetting Data
+
+```{r loading in data, echo=TRUE}
+d <- read.csv("Dataset_S!.txt", sep= ',', header=TRUE) #reading in data and calling it d
+head(d) #checking data
+colnames(d) [12] <- "percent.GC"
+d$diversity <- d$Pi/(10*1000) #rescale from last class
+d$cent <-d$start >= d$send <= 29700000 
+```
+
