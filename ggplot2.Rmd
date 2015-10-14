@@ -71,5 +71,20 @@ ggplot(d) + geom_bar(aes(x=percent.GC)) #plotting percent GC that we put in bins
 ggplot(d) + geom_density(aes(x=depth, linetype=GC.binned), alpha=0.5) #this shows us the lowest and highest GC content windows have lower depth
 ```
 
+##3. Merging and Combining Data
+
+loading in our data files
+```{r loading in data for merging, echo=TRUE}
+mtfs <- read.delim("motif_recombrates.txt", header=TRUE) #read in motif recombination rates data
+rpts <- read.delim("motif_repeats.txt", header=TRUE) #read in motif repeats
+head(rpts,3) #looking at the first 3 lines of rpts
+
+mtfs$pos <-paste(mtfs$chr, mtfs$motif_start, sep="-") #make a column of specific positions per chromosome in the metfs dataframe
+rpts$pos <- paste(rpts$chr, rpts$motif_start, sep="-") #make a column of a specific positions per chromosome in rpts dataframe
+recm <-merge (mtfs, rpts, by.x="pos", by.y="pos") #merge making a new dataframe 
+head(recm)
+nrow(recm)
+```
+
 
 
