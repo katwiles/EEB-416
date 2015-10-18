@@ -40,7 +40,15 @@ ggplot(recm) + geom_density(aes(x=recom, fill=name), alpha=0.3) +xlab("Recombina
 #####The distribution of recombination rates seem to be pretty similar in both motif types.
 
 
-###3. 
+###3. How do the recombination rates of the motif types differ from background (ie all seq recombination rates; you will want to look at summary statistics and make a plot for this question).
+
+
+```{r summary stats, echo=TRUE}
+recom.all<-(recm$recom) #pulling out all of the recombination rates for all seqences
+summary(recom.all) #getting summary statistics for recombination rates for all seq
+
+```
+
 
 
 
