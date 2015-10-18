@@ -34,9 +34,13 @@ head(avg.recom)
 
 Plotting data
 ```{r plot, echo=TRUE}
-ggplot(recm) + geom_density(aes(x=, fill=name), alpha=0.5) 
+library(ggplot2)
+ggplot(recm) + geom_density(aes(x=recom, fill=name), alpha=0.3) +xlab("Recombination Rate") +ylab("Density") + labs(fill="Motif Type")
 ```
+#####The distribution of recombination rates seem to be pretty similar in both motif types.
 
+
+###3. 
 
 
 
